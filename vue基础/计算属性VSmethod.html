@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性VSmethod</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--计算属性会将运算过后的值缓存起来,如果
+        方法内部的变量没有发生变化,那么就会使用缓存的值
+        methods里边的方法会在每一次调用的时候都会执行
+        在双大括号内部绑定的时候
+        methods调用需要加()计算属性不需要加-->
+        <button @click="a++">计算属性</button>
+        <button @click="count++">methods</button>
+        <!--methods方法的-->
+        <p>{{counter()}}</p>
+        <p>{{counter()}}</p>
+        <p>{{counter()}}</p>
+        <!--计算属性的-->
+        <p>{{counters}}</p>
+        <p>{{counters}}</p>
+        <p>{{counters}}</p>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            count: 0,
+            a: 1
+        },
+        methods: {
+            counter: function () {
+                console.log('method执行了')
+                return this.count + this.a
+            }
+        },
+        computed: {
+            counters: function () {
+                console.log('computed执行了')
+                return this.count + this.a
+            }
+        },
+        watch: {
+            'a': function (newValue, oldValue) {
+                console.log(newValue)
+                if (newValue == 2) {
+                    this.a = 'a等于2'
+                }
+                console.log(oldValue)
+            }
+        }
+    })
+    // console.log('你好吗?我呢?'.indexOf('?') === -1)
+</script>

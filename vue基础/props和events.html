@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>props和events</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="add">加法</button>
+        <!--如果不加v-bind 那么就是静态绑定 把message当成字符串message
+        加上v-bind 就是动态绑定 把message当作变量了-->
+        <my-component :message-child="message"></my-component>
+        <p>{{message}}</p>
+    </div>
+</body>
+</html>
+<script>
+    Vue.component('my-component',{
+        template:"<div @click=\"change\">{{message}}</div>",
+        // 父组件往子组件传值通过props属性
+        // props:['messageChild'],
+        props:{
+            // 指定类型
+            // messageChild:String
+            // 指定多种类型
+            // messageChild:[String,Number]
+            // messageChild:{
+            //     type:String,
+            //     // 必须
+            //     required:true
+            // }
+            // 设置默认值,如果父组件没有传递进来的
+            // messageChild:{
+            //     type:String,
+            //     default:'100'
+            // }
+            // messageChild:{
+                // type:Object,
+                // 如果传入的值是对象或者数组的话
+                // 那么默认值的设置必须由一个工厂函数返回
+                // 原因参考子组件中data必须是函数
+                // default:function(){
+                //     return {message:"Hello"}
+                // }
+            // }
+            messageChild:{
+                // 自定义验证函数,返回true 或者 false
+                validator:function(value){
+                    return value > 10
+                }
+            }
+        },
+        methods:{
+            change:function(){
+                // 子组件内部不能够修改父组件传递过来的内容
+                // 值传递的时候 
+                // 当引用传递的时候  传递的为对象或者数组的时候
+                // 子组件修改父组件传过来的内容 会影响到
+                // 父组件的内容
+                this.messageChild.push('陈亚焱')
+            }
+        },
+        data:function(){
+            return {
+                message:this.messageChild
+            }
+        },
+        watch:{
+            messageChild:function(nv,ov){
+                // console.log(nv)
+                this.message = nv
+            }
+        }
+    })
+    new Vue({
+        el:"#app",
+        data:{
+            message:['周军鹏']
+        },
+        methods:{
+            add:function(){
+                this.message.push('李嘉斌')
+            }
+        }
+    })
+</script>

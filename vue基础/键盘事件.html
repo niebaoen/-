@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>键盘事件</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" @keyup="move" @keyup.up="moveUp" >
+        <div></div>
+        <style>
+          div{
+              width: 100px;
+              height: 100px;
+              background: #f00;
+          }
+        </style>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:'#app',
+        methods:{
+          move:function(e){
+            //  cosnole.log(e)
+
+            //  switch(e.keyCode){
+            //      case 37:
+            // e.target 指向input 
+            // nextSiblings
+            //   var box = e.target.nextSiblings
+            //   box.style.left = box.offsetLeft -= 10 + 'px'
+            //  }
+          }
+        }
+    })
+</script>

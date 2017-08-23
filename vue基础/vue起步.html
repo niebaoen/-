@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue基础</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      {{message}}
+        <!--v-html 叫vue中的指令 以v-开头
+        v-html指令的作用就是将字符串模版绑定到标签上-->
+        <div class="html" v-html="html">
+        </div>
+        <!--v-text就是将值绑定到标签上-->
+        <div class="text" v-text="message">
+        </div>
+        <!--v-bind绑定属性-->
+        <div class="attr" v-bind:title="title ? 'Hello Vue!' : 'Sorry Vue!'">
+            {{message}}
+        </div>
+        <!--v-show 当条件为真时显示
+        当条件为假时隐藏(display:none)-->
+        <div class="show" v-show="title">
+            我是v-show控制的
+        </div>
+        <!--v-if-->
+        <!--v-if就是条件为真时加载DOM节点
+        为假时移除DOM节点-->
+        <div class="if" v-if="!title">
+            我是v-if控制的
+        </div>
+
+        <!--条件循环-->
+        <ul>
+            <li v-for="(l,index) in list">
+               {{index}}--{{l.name}}--{{l.age}}
+               <!--v-for="(key,value,index) in obj"-->
+            </li>
+        </ul>
+
+        <!--事件监听  绑定事件  v-on-->
+        <!--单击事件默认会将事件的event对象传入到
+        触发的函数中去-->
+        <!--如果函数被传入了参数,如果还想获取到事件的event对象
+        那么必须要在参数中传入$event-->
+        <button @click="buttonClick(1,$event)">你点我一下试试</button>
+        <div :title="'我是v-bind'">
+            我是v-bind指令的缩写
+        </div>
+       
+        <button @click="count++">count++</button>
+        <div>
+            {{count}}
+        </div>
+        <div v-once>
+            {{count}}
+        </div>
+        <!--.prevent修饰符  阻止默认事件-->
+        <form @submit.prevent="formSubmit">
+            <input type="text" name="" value="">
+            <button>提交</button>
+        </form>
+        <!--双向数据绑定-->
+        <input type="text" v-model="account" value="">
+        <p>{{account = account ? account : '0'}}</p>
+
+        
+        <!--循环语句-->
+        <button @click="count++">buttonClick</button>
+        <p v-if="count == 0">count=0</p>
+        <p v-else-if="count == 1">count=1</p>
+        <p v-else-if="count == 2">count=2</p>
+        <p v-else>count=3</p>
+    </div>
+</body>
+</html>
+<script>
+    // 实例化一个vue对象出来
+   var app = new Vue({
+    //    el是element的缩写
+    //    选中挂载内容的根节点
+       el:"#app",
+    //    要显示在标签内部的数据
+       data:{
+           message:"Hello Vue!",
+           html:"<a href='http://www.baidu.com'>跳转到百度</a>",
+           title:false,
+           list:[
+               {name:"张惠迪",age:25},
+               {name:"李嘉斌",age:32},
+               {name:"肖金彪",age:31},
+               {name:"王富雅",age:18}
+           ],
+           count:0,
+           account:""
+       },
+    //    方法
+       methods:{
+           buttonClick:function(){
+                console.log(arguments)
+           },
+           formSubmit:function(){
+              //  e.preventDefault()
+              console.log('表单要提交了...')
+           }       
+       }
+    })
+
+
+    console.log('Hello Vue!' == app.message)
+</script>

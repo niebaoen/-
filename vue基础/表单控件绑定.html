@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>表单控件绑定</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="checkbox" v-model="check">
+        <p>checkbox的值:{{check}}</p>
+
+        <input type="checkbox" value="李嘉斌" v-model="checkNames">
+        <label for="">李嘉斌</label>
+        <input type="checkbox" value="陈亚焱" v-model="checkNames">
+        <label for="">陈亚焱</label>
+        <input type="checkbox" value="王富艳" v-model="checkNames">
+        <label for="">王富艳</label>
+        <p>CheckedNames:{{checkNames}}</p>
+
+
+        <select v-model="selected">
+            <option>A</option>
+            <option selected>B</option>
+            <option>C</option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+        <!--.lazy修饰符  原来v-model是input事件同步
+        lazy修饰符变成在change事件中同步
+        input 当表单内容发生变化就会触发该事件
+        change 当表单内容发生变化并且表单失去焦点后触发该事件-->
+        <input type="text" v-model.lazy="person">
+        <p>{{person}}</p>
+         <!--type=number有时候也会返回字符串类型
+         这里是强制绑定的值为数字类型-->
+        <input type="number" v-model.number="count">
+        <p>{{count}}</p>
+        
+        <input type="text" v-model.trim="string">
+        <p>{{string}}</p>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            string:"                  ",
+            count:'zhou',
+            check: false,
+            checkNames: [],
+            selected:'A',
+            person:""
+        }
+    })
+
+</script>

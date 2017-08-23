@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>非父子组件之间的通信</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       <bus-first></bus-first>
+       <bus-second></bus-second>
+    </div>
+</body>
+</html>
+<script>
+    // 空的bus
+    var mr = new Vue()
+
+    Vue.component('bus-first',{
+        template:"<div>{{message}}<button @click=\"change\">更改second</button></div>",
+        data:function(){
+            return {
+                message:0
+            }
+        },
+        methods:{
+            change:function(){
+                mr.$emit('first-change')
+                // this.count++
+            }
+        }
+    })
+    Vue.component('bus-second',{
+        template:"<div>{{count}}<button>更改first</button></div>",
+        data:function(){
+            return {
+                count:0
+            }
+        },
+        // 可以在组件挂载到页面上之后进行监听事件
+        mounted:function(){
+            mr.$on('first-change',function () {
+                this.count++
+            })
+        }
+    })
+
+    new Vue({
+       el:"#app"
+    })
+</script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>动态组件</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      <ul>
+        <li @click="myTab='tab-one'">1111111111111111111</li>
+        <li @click="myTab='tab-two'">2222222222222222222</li>
+        <li @click="myTab='tab-three'">3333333333333333333</li>
+      </ul>
+      <!-- 状态被缓存起来 -->
+      <keep-alive>
+        <tab :is="myTab">
+          <!-- <div :is="myTab"></div> -->
+        </tab>
+      </keep-alive>
+  </div>
+</body>
+</html>
+<script>
+  Vue.component('tab',{
+    template:"<div><slot></slot></div>"
+  })
+  Vue.component('tab-one',{
+    template:"<div>{{num()}}</div>",
+    methods:{
+      num:function() {
+        return Math.random() * 10
+      }
+    }
+  })
+  Vue.component('tab-two',{
+    template:"<div>2222222222222222222222</div>"
+  })
+  Vue.component('tab-three',{
+    template:"<div>3333333333333333333333</div>"
+  })
+  new Vue({
+    el:"#app",
+    data:{
+      myTab:'tab-one'
+    }
+  })
+</script>

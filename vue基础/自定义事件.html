@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义事件</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-com :count="message" @increase="inc"></my-com>
+        <!--.native必须响应js原生事件-->
+        <my-com :count="message" @click.native="incs"></my-com>
+    </div>
+</body>
+</html>
+<script>
+    Vue.component('myCom',{
+        template:'<div @click="counter">{{count}}</div>',
+        props:['count'],
+        methods:{
+            counter:function(){
+                console.log('counter被触发了')
+                // 通过事件的方式
+                // 向上发射事件
+                this.$emit('increase',this.count)
+            }
+        }
+    })
+    new Vue({
+        el:"#app",
+        data:{
+          message:0
+        },
+        methods:{
+          inc:function(){
+              console.log(arguments)
+              this.message++
+          },
+          incs:function(){
+              console.log('这是父组件click事件的响应')
+          }
+        }
+    })
+</script>

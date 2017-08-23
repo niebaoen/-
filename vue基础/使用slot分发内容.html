@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>使用slot分发内容</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+   <div id="app">
+      <my-com>
+        <p slot="first">我是name=first的slot分发内容</p>
+        {{num}}
+        <p slot="second">我是name=second的slot分发内容</p>
+      </my-com>
+   </div>
+</body>
+</html>
+<script>
+  Vue.component('my-com',{
+    template:"<div>\
+    <slot name=\"first\"></slot>\
+    <span>我是子组件内的内容</span>\
+    <slot>只有在没有分发内容的时候我才会显示</slot>\
+    <slot name=\"second\"></slot>\
+    </div>",
+    data:function(){
+      return {
+        num:20
+      }
+    }
+  })
+  new Vue({
+    el:"#app",
+    data:{
+      num:10
+    }
+  })
+</script>

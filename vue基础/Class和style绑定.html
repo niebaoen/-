@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>class和style绑定</title>
+    <script src="vue.js"></script>
+    <style>
+       .active{
+           color:#f00;
+       }
+       .font{
+           font-size:40px;
+       }
+       .back{
+           background:orange;
+       }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="isActive=!isActive">点击切换</button>
+        <div :class="{active:isActive,font:true}" class="back">
+            我是对象绑定class的
+        </div>
+        <div :class="obj">
+            我是对象变量绑定的class
+        </div>
+        <div :class="[classA,classB]">
+            我是数组绑定的class
+        </div>
+        <div :class="[isActive ? 'active' : '',classB]">
+            我是三元运算符
+        </div>
+        <div :class="[{active:isActive},classB]">
+            我是数组和对象混合
+        </div>
+
+        <!---------------------------------------------->
+        <!--fontSize  'font-size'-->
+        <div :style="{color:activeColor,'font-size':font + 'px'}">
+            我是对象绑定的
+        </div>
+        <div :style="[baseStyle,normalStyle]">
+            我是数组绑定的
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            isActive:false,
+            obj:{
+                active:true,
+                font:true
+            },
+            classA:'active',
+            classB:"font",
+            activeColor:"green",
+            font:40,
+            baseStyle:{
+                margin:"100px auto",
+                padding:"10px"
+            },
+            normalStyle:{
+                color:"#f00",
+                'line-height':"100px"
+            }
+        }
+    })
+</script>

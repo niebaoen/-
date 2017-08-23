@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-tab切换</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+     <ul>
+       <li @click="a=1">1111111111111111111111</li>
+       <li @click="a=2">2222222222222222222222</li>
+       <li @click="a=3">3333333333333333333333</li>
+     </ul>
+     <div class="tab">
+       <div v-if="a == 1">111111111111111111111</div>
+       <div v-if="a == 2">2222222222222222222222</div>
+       <div v-if="a == 3">3333333333333333333333</div>
+     </div>
+  </div>
+</body>
+</html>
+<script>
+  new Vue({
+    el:"#app",
+    data:{
+      a:1
+    }
+  })
+</script>

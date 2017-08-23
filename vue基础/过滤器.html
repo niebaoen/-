@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="arrChange">点击增加</button>
+        <ul>
+            <li v-for="(a,index) in array">
+                <!--过滤器就是对某个值进行转换操作-->
+                <!--过滤器可以实现多个串联
+                执行方式是从左到右-->
+                {{index}}--{{a.name}}--{{a.age | ageFilter(10) | filterB}}
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            array:[
+                {name:"李嘉斌",age:18},
+                {name:"陈亚焱",age:11},
+                {name:"雷鹏博",age:16},
+                {name:"胡刚",age:12}
+            ]
+        },
+        filters:{
+            ageFilter:function(value,number){
+               console.log('ageFilter')
+               return value + number
+            },
+            filterB:function(value){
+                console.log('filterB')
+                return value 
+            }
+        },
+        methods:{
+            arrChange:function(){
+                // this.array[0].name = "张惠迪"
+                // 在内部数组已经更新了 但是却没有显示到页面上
+                // this.array[4] = {name:"肖金彪",age:22}
+                // console.log(this.array)
+                // this.array.push({name:"肖金彪",age:22})
+
+                // vue提供一种新的方法
+                // Vue.set(array,index,newValue)
+                Vue.set(this.array,4,{name:"肖金彪",age:22})
+            }
+        }
+    })
+</script>

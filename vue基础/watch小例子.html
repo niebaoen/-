@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>watch小例子</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+         <input type="text" v-model="question">
+         <p>{{answer}}</p>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            question:"",
+            answer:"你可以向我提问一个问题"
+        },
+        watch:{
+            question:function(nv){
+                if(!this.question){
+                    this.answer = '你可以向我提问一个问题'
+                    return 
+                }
+                this.getAnswer()
+            }
+        },
+        methods:{
+            getAnswer:function(){
+                setTimeout(function(){
+                    console.log(this)
+                    if(this.question.indexOf('?') == -1){
+                        this.answer = '问题必须包含至少一个?'
+                        return
+                    }
+ 
+                    this.answer = '思考中...'
+
+                    setTimeout(function(){
+                      this.answer = '你瞅你提的破问题'
+                    }.bind(this),500)
+                }.bind(this),500)
+            }
+        }
+    })
+</script>
